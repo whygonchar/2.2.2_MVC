@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import web.Service.CarService;
 
 @Controller
-@RequestMapping("/cars")
 public class CarController {
 
     private final CarService carService;
@@ -20,16 +19,10 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping
-    public String cars(Model model) {
-        model.addAttribute("cars", carService.getCars());
+    @GetMapping("/cars")
+    public String getCars(@RequestParam(name = "count", required = false) Integer count, Model model) {
+        model.addAttribute("cars", carService.getCars(count));
         return "car";
-    }
-
-    @GetMapping("/{count}")
-    public String show(@PathVariable("count") int count, Model model) {
-        model.addAttribute("car", carService.getCars(count));
-        return "carIndex";
     }
 
 

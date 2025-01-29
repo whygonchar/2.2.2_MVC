@@ -5,7 +5,6 @@ import web.Model.Car;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class CarServiceImp implements CarService {
@@ -23,14 +22,8 @@ public class CarServiceImp implements CarService {
     }
 
     @Override
-    public List<Car> getCars() {
-        return cars;
-    }
-
-    @Override
-    public List getCars(int count) {
-        if (count >= 5) {return cars;}
-        if (count == 0) {return null;}
+    public List<Car> getCars(Integer count) {
+        count = (count == null || count > 5) ? 5 : count < 0 ? 0 : count;
         return cars.subList(0,count);
     }
 
